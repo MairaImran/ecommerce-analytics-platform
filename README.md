@@ -51,12 +51,11 @@ Products
 Payments
 
 Tech Stack
-Technology	Purpose
-PostgreSQL	Relational Database
-SQL	Data Transformation & Analytics
-Git	Version Control
-GitHub	Project Repository & Documentation
-Database Design	Relational Data Modeling
+PostgreSQL	
+SQL	
+Git	
+GitHub
+Database Design
 
 Database Design
 
