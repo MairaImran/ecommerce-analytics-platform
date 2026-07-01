@@ -1,0 +1,29 @@
+CREATE OR REPLACE VIEW vw_customer_revenue AS
+SELECT
+    c.customer_unique_id,
+    c.customer_city,
+    c.customer_state,
+    SUM(p.payment_value) AS total_revenue,
+    COUNT(DISTINCT o.order_id) AS total_orders
+FROM olist_customers_dataset c
+JOIN olist_orders_dataset o ON c.customer_id = o.customer_id
+JOIN olist_order_payments_dataset p ON o.order_id = p.order_id
+GROUP BY c.customer_unique_id, c.customer_city, c.customer_state;
+
+CREATE OR REPLACE VIEW vw_monthly_sales AS
+SELECT
+    DATE_TRUNC('month', o.order_purchase_timestamp) AS month,
+    SUM(p.payment_value) AS monthly_revenue,
+    COUNT(DISTINCT o.order_id) AS total_orders
+FROM olist_orders_dataset o
+JOIN olist_order_payments_dataset p
+ON o.order_id = p.order_id
+GROUP BY month;
+
+CREATE OR REPLACE VIEW vw_product_performance AS
+SELECT
+    product_id,
+    COUNT(*) AS units_sold,
+    SUM(price) AS revenue
+FROM olist_order_items_dataset
+GROUP BY product_id;
